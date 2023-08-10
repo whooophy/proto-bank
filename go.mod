@@ -1,4 +1,4 @@
-module proto
+module github.com/whooophy/proto-bank
 
 go 1.20
 
