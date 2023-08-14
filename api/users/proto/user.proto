@@ -33,8 +33,7 @@ message AddRoleRequest{
 // Response
 
 message AddUserResponse{
-  int32 id = 1;
-  string name = 2;
+  string message = 1;
 }
 
 message AddRoleResponse{
@@ -43,5 +42,5 @@ message AddRoleResponse{
 
 service UserService {
   rpc AddUser(AddUserRequest) returns (AddUserResponse);
-  rpc AddRole(AddRoleRequest) returns (AddUserResponse);
+  rpc AddRole(AddRoleRequest) returns (AddRoleResponse);
 }

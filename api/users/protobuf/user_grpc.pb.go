@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
 	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
-	AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
+	AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleResponse, error)
 }
 
 type userServiceClient struct {
@@ -43,8 +43,8 @@ func (c *userServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opt
 	return out, nil
 }
 
-func (c *userServiceClient) AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddUserResponse, error) {
-	out := new(AddUserResponse)
+func (c *userServiceClient) AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleResponse, error) {
+	out := new(AddRoleResponse)
 	err := c.cc.Invoke(ctx, "/user.UserService/AddRole", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (c *userServiceClient) AddRole(ctx context.Context, in *AddRoleRequest, opt
 // for forward compatibility
 type UserServiceServer interface {
 	AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error)
-	AddRole(context.Context, *AddRoleRequest) (*AddUserResponse, error)
+	AddRole(context.Context, *AddRoleRequest) (*AddRoleResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -68,7 +68,7 @@ type UnimplementedUserServiceServer struct {
 func (UnimplementedUserServiceServer) AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
 }
-func (UnimplementedUserServiceServer) AddRole(context.Context, *AddRoleRequest) (*AddUserResponse, error) {
+func (UnimplementedUserServiceServer) AddRole(context.Context, *AddRoleRequest) (*AddRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddRole not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
