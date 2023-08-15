@@ -52,7 +52,7 @@ message AddRoleRequest{
 message GetListUserRequest{
   string search = 1;
   int32 role_id = 2;
-  bool string = 3;
+  bool status = 3;
   int32 limit = 4;
   int32 page = 5;
 }
