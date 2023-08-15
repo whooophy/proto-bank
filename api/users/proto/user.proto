@@ -20,6 +20,21 @@ message Meta {
   int32 total = 3;
 }
 
+message User{
+  string privy_id = 1;
+  string name = 2;
+  string role = 3;
+  repeated string channel = 4;
+  bool status = 5;
+  string created_at = 6;
+}
+
+message Role{
+  int64 id = 1;
+  string name = 2;
+  repeated string menu = 3;
+  string created_at = 4;
+}
 
 // Request contract
 message AddUserRequest {
@@ -74,21 +89,13 @@ message AddRoleResponse{
 }
 
 message GetListUserResponse{
-  string privy_id = 1;
-  string name = 2;
-  string role = 3;
-  repeated string channel = 4;
-  bool status = 5;
-  string created_at = 6;
-  Meta meta = 7;
+  User data = 1;
+  Meta meta = 2;
 }
 
 message GetListRoleResponse{
-  int64 id = 1;
-  string name = 2;
-  repeated string menu = 3;
-  string created_at = 4;
-  Meta meta = 5;
+  Role data = 1;
+  Meta meta = 2;
 }
 
 message GetUserDetailResponse{
