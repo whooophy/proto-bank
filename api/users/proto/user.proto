@@ -89,12 +89,12 @@ message AddRoleResponse{
 }
 
 message GetListUserResponse{
-  User data = 1;
+  repeated User data = 1;
   Meta meta = 2;
 }
 
 message GetListRoleResponse{
-  Role data = 1;
+  repeated Role data = 1;
   Meta meta = 2;
 }
 
