@@ -22,14 +22,14 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error)
-	AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleResponse, error)
+	AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*BaseResponse, error)
+	AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*BaseResponse, error)
 	GetUserList(ctx context.Context, in *GetListUserRequest, opts ...grpc.CallOption) (*GetListUserResponse, error)
 	GetRoleList(ctx context.Context, in *GetListRoleRequest, opts ...grpc.CallOption) (*GetListRoleResponse, error)
 	GetUserDetail(ctx context.Context, in *GetUserDetailRequest, opts ...grpc.CallOption) (*GetUserDetailResponse, error)
 	GetRoleDetail(ctx context.Context, in *GetRoleDetailsRequest, opts ...grpc.CallOption) (*GetRoleDetailResponse, error)
-	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
-	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error)
+	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*BaseResponse, error)
+	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*BaseResponse, error)
 }
 
 type userServiceClient struct {
@@ -40,8 +40,8 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*AddUserResponse, error) {
-	out := new(AddUserResponse)
+func (c *userServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opts ...grpc.CallOption) (*BaseResponse, error) {
+	out := new(BaseResponse)
 	err := c.cc.Invoke(ctx, "/user.UserService/AddUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -49,8 +49,8 @@ func (c *userServiceClient) AddUser(ctx context.Context, in *AddUserRequest, opt
 	return out, nil
 }
 
-func (c *userServiceClient) AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*AddRoleResponse, error) {
-	out := new(AddRoleResponse)
+func (c *userServiceClient) AddRole(ctx context.Context, in *AddRoleRequest, opts ...grpc.CallOption) (*BaseResponse, error) {
+	out := new(BaseResponse)
 	err := c.cc.Invoke(ctx, "/user.UserService/AddRole", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -94,8 +94,8 @@ func (c *userServiceClient) GetRoleDetail(ctx context.Context, in *GetRoleDetail
 	return out, nil
 }
 
-func (c *userServiceClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error) {
-	out := new(DeleteUserResponse)
+func (c *userServiceClient) DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*BaseResponse, error) {
+	out := new(BaseResponse)
 	err := c.cc.Invoke(ctx, "/user.UserService/DeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -103,8 +103,8 @@ func (c *userServiceClient) DeleteUser(ctx context.Context, in *DeleteUserReques
 	return out, nil
 }
 
-func (c *userServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*DeleteRoleResponse, error) {
-	out := new(DeleteRoleResponse)
+func (c *userServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*BaseResponse, error) {
+	out := new(BaseResponse)
 	err := c.cc.Invoke(ctx, "/user.UserService/DeleteRole", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -116,14 +116,14 @@ func (c *userServiceClient) DeleteRole(ctx context.Context, in *DeleteRoleReques
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
-	AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error)
-	AddRole(context.Context, *AddRoleRequest) (*AddRoleResponse, error)
+	AddUser(context.Context, *AddUserRequest) (*BaseResponse, error)
+	AddRole(context.Context, *AddRoleRequest) (*BaseResponse, error)
 	GetUserList(context.Context, *GetListUserRequest) (*GetListUserResponse, error)
 	GetRoleList(context.Context, *GetListRoleRequest) (*GetListRoleResponse, error)
 	GetUserDetail(context.Context, *GetUserDetailRequest) (*GetUserDetailResponse, error)
 	GetRoleDetail(context.Context, *GetRoleDetailsRequest) (*GetRoleDetailResponse, error)
-	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
-	DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error)
+	DeleteUser(context.Context, *DeleteUserRequest) (*BaseResponse, error)
+	DeleteRole(context.Context, *DeleteRoleRequest) (*BaseResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -131,10 +131,10 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) AddUser(context.Context, *AddUserRequest) (*AddUserResponse, error) {
+func (UnimplementedUserServiceServer) AddUser(context.Context, *AddUserRequest) (*BaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddUser not implemented")
 }
-func (UnimplementedUserServiceServer) AddRole(context.Context, *AddRoleRequest) (*AddRoleResponse, error) {
+func (UnimplementedUserServiceServer) AddRole(context.Context, *AddRoleRequest) (*BaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddRole not implemented")
 }
 func (UnimplementedUserServiceServer) GetUserList(context.Context, *GetListUserRequest) (*GetListUserResponse, error) {
@@ -149,10 +149,10 @@ func (UnimplementedUserServiceServer) GetUserDetail(context.Context, *GetUserDet
 func (UnimplementedUserServiceServer) GetRoleDetail(context.Context, *GetRoleDetailsRequest) (*GetRoleDetailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleDetail not implemented")
 }
-func (UnimplementedUserServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error) {
+func (UnimplementedUserServiceServer) DeleteUser(context.Context, *DeleteUserRequest) (*BaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteUser not implemented")
 }
-func (UnimplementedUserServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*DeleteRoleResponse, error) {
+func (UnimplementedUserServiceServer) DeleteRole(context.Context, *DeleteRoleRequest) (*BaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRole not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}

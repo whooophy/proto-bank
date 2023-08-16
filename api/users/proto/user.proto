@@ -20,6 +20,12 @@ message Meta {
   int32 total = 3;
 }
 
+message BaseResponse {
+  int32 code = 1;
+  string status = 2;
+}
+
+
 message User{
   string privy_id = 1;
   string name = 2;
@@ -80,14 +86,6 @@ message DeleteRoleRequest{
 }
 
 // Response
-message AddUserResponse{
-  string message = 1;
-}
-
-message AddRoleResponse{
-  string message = 1;
-}
-
 message GetListUserResponse{
   repeated User data = 1;
   Meta meta = 2;
@@ -112,21 +110,13 @@ message GetRoleDetailResponse{
   repeated Menu menu = 3;
 }
 
-message DeleteUserResponse{
-  string message = 1;
-}
-
-message DeleteRoleResponse{
-  string message = 1;
-}
-
 service UserService {
-  rpc AddUser(AddUserRequest) returns (AddUserResponse);
-  rpc AddRole(AddRoleRequest) returns (AddRoleResponse);
+  rpc AddUser(AddUserRequest) returns (BaseResponse);
+  rpc AddRole(AddRoleRequest) returns (BaseResponse);
   rpc GetUserList(GetListUserRequest) returns (GetListUserResponse);
   rpc GetRoleList(GetListRoleRequest) returns (GetListRoleResponse);
   rpc GetUserDetail(GetUserDetailRequest) returns (GetUserDetailResponse);
   rpc GetRoleDetail(GetRoleDetailsRequest) returns (GetRoleDetailResponse);
-  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
-  rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (BaseResponse);
+  rpc DeleteRole(DeleteRoleRequest) returns (BaseResponse);
 }
