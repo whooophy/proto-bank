@@ -6,7 +6,8 @@ option go_package = ".";
 
 message SubMenu{
   string name = 1;
-  bool request_download = 2;
+  bool checked = 2;
+  bool request_download = 3;
 }
 
 message Menu{
@@ -97,17 +98,24 @@ message GetListRoleResponse{
 }
 
 message GetUserDetailResponse{
-  string privy_id = 1;
-  string name = 2;
-  string role = 3;
-  bool status = 4;
-  repeated string channels = 5;
+  int64 id = 1;
+  string privy_id = 2;
+  string name = 3;
+  string role = 4;
+  bool status = 5;
+  repeated string channels =6;
+  string created_at = 7;
+  string updated_at = 8;
+  string deleted_at = 9;
 }
 
 message GetRoleDetailResponse{
   int64 id = 1;
   string name = 2;
   repeated Menu menu = 3;
+  string created_at = 4;
+  string updated_at = 5;
+  string deleted_at = 6;
 }
 
 service UserService {
