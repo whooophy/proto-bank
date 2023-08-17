@@ -53,7 +53,7 @@ message AddUserRequest {
 
 message AddRoleRequest{
   string role_name = 1;
-  repeated Menu menu = 2 ;
+  repeated SubMenu menu = 2 ;
 }
 
 message GetListUserRequest{
