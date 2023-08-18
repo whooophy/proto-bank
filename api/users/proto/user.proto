@@ -5,9 +5,10 @@ package user;
 option go_package = ".";
 
 message SubMenu{
-  string name = 1;
-  bool checked = 2;
-  bool request_download = 3;
+  int32 id = 1;
+  string name = 2;
+  bool checked = 3;
+  bool request_download = 4;
 }
 
 message Menu{
