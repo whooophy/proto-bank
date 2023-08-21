@@ -130,8 +130,9 @@ message UpdateUserRequest {
 }
 
 message UpdateRoleRequest{
-  string role_name = 1;
-  repeated SubMenu menu = 2 ;
+  int64 id = 1;
+  string role_name = 2;
+  repeated SubMenu menu = 3;
 }
 
 service UserService {
