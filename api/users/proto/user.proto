@@ -4,6 +4,7 @@ package user;
 
 option go_package = ".";
 
+//entity
 message SubMenu{
   int32 id = 1;
   string name = 2;
@@ -26,7 +27,6 @@ message BaseResponse {
   int32 code = 1;
   string status = 2;
 }
-
 
 message User{
   int64 id = 1;
@@ -120,13 +120,29 @@ message GetRoleResponse{
   string deleted_at = 6;
 }
 
+// Request contract
+message UpdateUserRequest {
+  int64 id = 1;
+  string privy_id = 2;
+  int32 role_id = 3;
+  repeated string channel_code = 4;
+  string status = 5;
+}
+
+message UpdateRoleRequest{
+  string role_name = 1;
+  repeated SubMenu menu = 2 ;
+}
+
 service UserService {
-  rpc AddUser(CreateUserRequest) returns (BaseResponse);
-  rpc AddRole(CreateRoleRequest) returns (BaseResponse);
+  rpc CreateUser(CreateUserRequest) returns (BaseResponse);
+  rpc CreateRole(CreateRoleRequest) returns (BaseResponse);
   rpc GetUserList(GetListUserRequest) returns (GetListUserResponse);
   rpc GetRoleList(GetListRoleRequest) returns (GetListRoleResponse);
   rpc GetUser(GetUserByIdRequest) returns (GetUserResponse);
   rpc GetRole(GetRoleByIdRequest) returns (GetRoleResponse);
   rpc DeleteUser(DeleteUserRequest) returns (BaseResponse);
   rpc DeleteRole(DeleteRoleRequest) returns (BaseResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (BaseResponse);
+  rpc UpdateRole(UpdateRoleRequest) returns (BaseResponse);
 }
