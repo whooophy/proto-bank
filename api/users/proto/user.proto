@@ -133,6 +133,7 @@ message UpdateRoleRequest{
   int64 id = 1;
   string role_name = 2;
   repeated SubMenu menu = 3;
+  string application_code = 4;
 }
 
 service UserService {
