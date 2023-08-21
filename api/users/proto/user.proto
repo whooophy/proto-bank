@@ -46,14 +46,14 @@ message Role{
 }
 
 // Request contract
-message AddUserRequest {
+message CreateUserRequest {
   string privy_id = 1;
   int32 role_id = 2;
   repeated string channel_code = 3;
   string status = 4;
 }
 
-message AddRoleRequest{
+message CreateRoleRequest{
   string role_name = 1;
   repeated SubMenu menu = 2 ;
 }
@@ -72,11 +72,11 @@ message GetListRoleRequest{
   int32 page = 3;
 }
 
-message GetUserDetailRequest{
+message GetUserByIdRequest{
   int64 id = 1;
 }
 
-message GetRoleDetailsRequest{
+message GetRoleByIdRequest{
   int64 id = 1;
 }
 
@@ -99,7 +99,7 @@ message GetListRoleResponse{
   Meta meta = 2;
 }
 
-message GetUserDetailResponse{
+message GetUserResponse{
   int64 id = 1;
   string privy_id = 2;
   string name = 3;
@@ -111,7 +111,7 @@ message GetUserDetailResponse{
   string deleted_at = 9;
 }
 
-message GetRoleDetailResponse{
+message GetRoleResponse{
   int64 id = 1;
   string name = 2;
   repeated Menu menus = 3;
@@ -121,12 +121,12 @@ message GetRoleDetailResponse{
 }
 
 service UserService {
-  rpc AddUser(AddUserRequest) returns (BaseResponse);
-  rpc AddRole(AddRoleRequest) returns (BaseResponse);
+  rpc AddUser(CreateUserRequest) returns (BaseResponse);
+  rpc AddRole(CreateRoleRequest) returns (BaseResponse);
   rpc GetUserList(GetListUserRequest) returns (GetListUserResponse);
   rpc GetRoleList(GetListRoleRequest) returns (GetListRoleResponse);
-  rpc GetUserDetail(GetUserDetailRequest) returns (GetUserDetailResponse);
-  rpc GetRoleDetail(GetRoleDetailsRequest) returns (GetRoleDetailResponse);
+  rpc GetUser(GetUserByIdRequest) returns (GetUserResponse);
+  rpc GetRole(GetRoleByIdRequest) returns (GetRoleResponse);
   rpc DeleteUser(DeleteUserRequest) returns (BaseResponse);
   rpc DeleteRole(DeleteRoleRequest) returns (BaseResponse);
 }
