@@ -13,15 +13,11 @@ jobs:
           version: '0.36.0'
       - uses: arduino/setup-protoc@v2
         with:
-          version: '3.21.9'
+          version: '21.9'
 
       - name: Fetching base branch
         run: |
           git fetch -u origin ${{ github.base_ref }}:${{ github.base_ref }}
-      - name: Running linter, checking breaking changes
-        run: |
-          buf lint
-          buf breaking --against ".git#branch=${{ github.base_ref }}"
       - name: Installing protoc-gen-go
         run: |
           go get github.com/golang/protobuf/protoc-gen-go

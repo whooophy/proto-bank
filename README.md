@@ -8,3 +8,5 @@ requirements:
 Usage:
 
 `protoc --proto_path=api/{{dir}} api/{{dir}}/proto/*.proto --go_out=api/{{dir}}/protobuf --go-grpc_out=api/{{dir}}/protobuf`
+
+contoh
