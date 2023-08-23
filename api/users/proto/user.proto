@@ -23,6 +23,16 @@ message Meta {
   int32 total = 3;
 }
 
+message RoleDetail{
+  string role_code = 1;
+  string role_name = 2;
+  string privy_id_dev = 3;
+  string enterprise_token = 4;
+  string application_code = 5;
+  string application_key  = 6;
+  repeated SubMenu allowed_menu = 7;
+}
+
 message BaseResponse {
   int32 code = 1;
   string status = 2;
@@ -63,6 +73,10 @@ message CreateRoleRequest{
   repeated SubMenu menu = 2 ;
 }
 
+message GetUserDetailRequest{
+  string privy_id = 1;
+}
+
 message GetListUserRequest{
   string search = 1;
   int32 role_id = 2;
@@ -94,6 +108,19 @@ message DeleteRoleRequest{
 }
 
 // Response
+message GetUserDetailResponse{
+  message GetUserResponse{
+    int64 id = 1;
+    string privy_id = 2;
+    string name = 3;
+    string role = 4;
+    string status = 5;
+    repeated string channels =6;
+    string created_at = 7;
+    string updated_at = 8;
+    string deleted_at = 9;
+  }
+}
 message GetListUserResponse{
   repeated User data = 1;
   Meta meta = 2;
@@ -108,9 +135,9 @@ message GetUserResponse{
   int64 id = 1;
   string privy_id = 2;
   string name = 3;
-  string role = 4;
-  string status = 5;
-  repeated string channels =6;
+  string status = 4;
+  repeated string allowed_channel = 5;
+  repeated RoleDetail roles = 6;
   string created_at = 7;
   string updated_at = 8;
   string deleted_at = 9;
@@ -152,4 +179,5 @@ service UserService {
   rpc DeleteRole(DeleteRoleRequest) returns (BaseResponse);
   rpc UpdateUser(UpdateUserRequest) returns (BaseResponse);
   rpc UpdateRole(UpdateRoleRequest) returns (BaseResponse);
+  rpc GetUserDetail(GetUserDetailRequest) returns (GetUserDetailResponse);
 }

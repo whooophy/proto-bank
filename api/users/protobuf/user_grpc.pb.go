@@ -32,6 +32,7 @@ type UserServiceClient interface {
 	DeleteRole(ctx context.Context, in *DeleteRoleRequest, opts ...grpc.CallOption) (*BaseResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*BaseResponse, error)
 	UpdateRole(ctx context.Context, in *UpdateRoleRequest, opts ...grpc.CallOption) (*BaseResponse, error)
+	GetUserDetail(ctx context.Context, in *GetUserDetailRequest, opts ...grpc.CallOption) (*GetUserDetailResponse, error)
 }
 
 type userServiceClient struct {
@@ -132,6 +133,15 @@ func (c *userServiceClient) UpdateRole(ctx context.Context, in *UpdateRoleReques
 	return out, nil
 }
 
+func (c *userServiceClient) GetUserDetail(ctx context.Context, in *GetUserDetailRequest, opts ...grpc.CallOption) (*GetUserDetailResponse, error) {
+	out := new(GetUserDetailResponse)
+	err := c.cc.Invoke(ctx, "/user.UserService/GetUserDetail", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -146,6 +156,7 @@ type UserServiceServer interface {
 	DeleteRole(context.Context, *DeleteRoleRequest) (*BaseResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*BaseResponse, error)
 	UpdateRole(context.Context, *UpdateRoleRequest) (*BaseResponse, error)
+	GetUserDetail(context.Context, *GetUserDetailRequest) (*GetUserDetailResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -182,6 +193,9 @@ func (UnimplementedUserServiceServer) UpdateUser(context.Context, *UpdateUserReq
 }
 func (UnimplementedUserServiceServer) UpdateRole(context.Context, *UpdateRoleRequest) (*BaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateRole not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserDetail(context.Context, *GetUserDetailRequest) (*GetUserDetailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserDetail not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -376,6 +390,24 @@ func _UserService_UpdateRole_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUserDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserDetailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/user.UserService/GetUserDetail",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserDetail(ctx, req.(*GetUserDetailRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -422,6 +454,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateRole",
 			Handler:    _UserService_UpdateRole_Handler,
+		},
+		{
+			MethodName: "GetUserDetail",
+			Handler:    _UserService_GetUserDetail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
