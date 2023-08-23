@@ -12,6 +12,13 @@ message SubMenu{
   bool request_download = 4;
 }
 
+message Application{
+  string enterprise_token = 1;
+  string privy_id_dev = 2;
+  string application_code = 3;
+  string application_key = 4;
+}
+
 message Menu{
   string menu = 1;
   repeated SubMenu sub_menu = 2;
@@ -109,17 +116,18 @@ message DeleteRoleRequest{
 
 // Response
 message GetUserDetailResponse{
-  message GetUserResponse{
-    int64 id = 1;
-    string privy_id = 2;
-    string name = 3;
-    string role = 4;
-    string status = 5;
-    repeated string channels =6;
-    string created_at = 7;
-    string updated_at = 8;
-    string deleted_at = 9;
-  }
+  int64 id = 1;
+  string privy_id = 2;
+  string name = 3;
+  string role_code = 4;
+  string role_name = 5;
+  string status = 6;
+  Application merchant_application = 7;
+  SubMenu allowed_menu = 8;
+  repeated string allowed_channel =9;
+  string created_at = 10;
+  string updated_at = 11;
+  string deleted_at = 12;
 }
 message GetListUserResponse{
   repeated User data = 1;
@@ -137,7 +145,6 @@ message GetUserResponse{
   string name = 3;
   string status = 4;
   repeated string allowed_channel = 5;
-  repeated RoleDetail roles = 6;
   string created_at = 7;
   string updated_at = 8;
   string deleted_at = 9;
