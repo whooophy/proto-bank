@@ -47,10 +47,15 @@ message Role{
 
 // Request contract
 message CreateUserRequest {
+  enum Status {
+    ACTIVE = 0;
+    INACTIVE = 1;
+  }
+
   string privy_id = 1;
-  int32 role_id = 2;
+  string role_code = 2;
   repeated string channel_code = 3;
-  string status = 4;
+  Status status = 4;
 }
 
 message CreateRoleRequest{
