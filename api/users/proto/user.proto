@@ -19,54 +19,16 @@ message Application{
   string application_key = 4;
 }
 
-message ApplicationMenu{
-  string menu = 1;
-  repeated Menu sub_menu = 2;
-}
-
-message Meta {
-  int32 page = 1;
-  int32 per_page = 2;
-  int32 total = 3;
-}
-
-message RoleDetail{
-  string role_code = 1;
-  string role_name = 2;
-  string privy_id_dev = 3;
-  string enterprise_token = 4;
-  string application_code = 5;
-  string application_key  = 6;
-  repeated Menu allowed_menu = 7;
-}
-
 message BaseResponse {
   int32 code = 1;
   string status = 2;
 }
 
-message User{
-  int64 id = 1;
-  string privy_id = 2;
-  string name = 3;
-  string role = 4;
-  repeated string channel = 5;
-  string status = 6;
-  string created_at = 7;
-}
-
-message Role{
-  int64 id = 1;
-  string name = 2;
-  repeated string menu = 3;
-  string created_at = 4;
-}
-
 // Request contract
 message CreateUserRequest {
   enum Status {
-    ACTIVE = 0;
-    INACTIVE = 1;
+    INACTIVE = 0;
+    ACTIVE = 1;
   }
 
   string privy_id = 1;
@@ -84,36 +46,6 @@ message GetUserDetailRequest{
   string privy_id = 1;
 }
 
-message GetListUserRequest{
-  string search = 1;
-  int32 role_id = 2;
-  string status = 3;
-  int32 limit = 4;
-  int32 page = 5;
-}
-
-message GetListRoleRequest{
-  string name = 1;
-  int32 limit = 2;
-  int32 page = 3;
-}
-
-message GetUserByIdRequest{
-  int64 id = 1;
-}
-
-message GetRoleByIdRequest{
-  int64 id = 1;
-}
-
-message DeleteUserRequest{
-  int64 id = 1;
-}
-
-message DeleteRoleRequest{
-  int64 id = 1;
-}
-
 // Response
 message GetUserDetailResponse{
   string privy_id = 1;
@@ -128,62 +60,9 @@ message GetUserDetailResponse{
   string updated_at = 10;
   string deleted_at = 11;
 }
-message GetListUserResponse{
-  repeated User data = 1;
-  Meta meta = 2;
-}
-
-message GetListRoleResponse{
-  repeated Role data = 1;
-  Meta meta = 2;
-}
-
-message GetUserResponse{
-  int64 id = 1;
-  string privy_id = 2;
-  string name = 3;
-  string status = 4;
-  repeated string allowed_channel = 5;
-  string created_at = 7;
-  string updated_at = 8;
-  string deleted_at = 9;
-}
-
-message GetRoleResponse{
-  int64 id = 1;
-  string name = 2;
-  repeated Menu menus = 3;
-  string created_at = 4;
-  string updated_at = 5;
-  string deleted_at = 6;
-}
-
-// Request contract
-message UpdateUserRequest {
-  int64 id = 1;
-  string privy_id = 2;
-  int32 role_id = 3;
-  repeated string channel_code = 4;
-  string status = 5;
-}
-
-message UpdateRoleRequest{
-  int64 id = 1;
-  string role_name = 2;
-  repeated Menu menu = 3;
-  string application_code = 4;
-}
 
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (BaseResponse);
   rpc CreateRole(CreateRoleRequest) returns (BaseResponse);
-  rpc GetUserList(GetListUserRequest) returns (GetListUserResponse);
-  rpc GetRoleList(GetListRoleRequest) returns (GetListRoleResponse);
-  rpc GetUser(GetUserByIdRequest) returns (GetUserResponse);
-  rpc GetRole(GetRoleByIdRequest) returns (GetRoleResponse);
-  rpc DeleteUser(DeleteUserRequest) returns (BaseResponse);
-  rpc DeleteRole(DeleteRoleRequest) returns (BaseResponse);
-  rpc UpdateUser(UpdateUserRequest) returns (BaseResponse);
-  rpc UpdateRole(UpdateRoleRequest) returns (BaseResponse);
   rpc GetUserDetail(GetUserDetailRequest) returns (GetUserDetailResponse);
 }
