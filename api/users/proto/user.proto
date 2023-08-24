@@ -24,6 +24,20 @@ message BaseResponse {
   string status = 2;
 }
 
+message User{
+  string privy_id = 1;
+  string user_name = 2;
+  string role_name = 3;
+  repeated string channel = 4;
+  string status = 5;
+}
+
+message Meta {
+  int32 page = 1;
+  int32 per_page = 2;
+  int32 total = 3;
+}
+
 // Request contract
 message CreateUserRequest {
   enum Status {
@@ -46,6 +60,14 @@ message GetUserDetailRequest{
   string privy_id = 1;
 }
 
+message GetUserListRequest{
+  string q = 1;
+  string role_code = 2;
+  string status = 3;
+  int64 page = 4;
+  int64 limit = 5;
+}
+
 // Response
 message GetUserDetailResponse{
   string privy_id = 1;
@@ -59,6 +81,11 @@ message GetUserDetailResponse{
   string created_at = 9;
   string updated_at = 10;
   string deleted_at = 11;
+}
+
+message GetUserListResponse{
+  repeated User users = 1;
+  Meta meta = 2;
 }
 
 service UserService {
