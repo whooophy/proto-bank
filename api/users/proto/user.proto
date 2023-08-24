@@ -92,4 +92,5 @@ service UserService {
   rpc CreateUser(CreateUserRequest) returns (BaseResponse);
   rpc CreateRole(CreateRoleRequest) returns (BaseResponse);
   rpc GetUserDetail(GetUserDetailRequest) returns (GetUserDetailResponse);
+  rpc GetUserList(GetUserListRequest) returns (GetUserListResponse);
 }
